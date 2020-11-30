@@ -1,6 +1,7 @@
 import os
 import csv
-from shutil import move
+from shutil import *
+from tqdm import tqdm
 
 IDX_DICT = {'cbb': 465,
             'cbsd': 1442,
@@ -14,9 +15,15 @@ LBL_DESC_DICT = {0: 'cbb',
                  3: 'cmd',
                  4: 'healthy'}
 
-LABELS = '/home/noteme/PycharmProjects/comp/data/cassava-leaf-disease-classification/train.csv'
-NEW_IMAGES_FOLDER = '/home/noteme/PycharmProjects/comp/data/cassava-leaf-disease-classification/train_images'
-DEST_FOLDER = '/home/noteme/PycharmProjects/comp/data/cassava-disease/train'
+# Vlad's DEST_FOLDERS
+# LABELS = '/home/noteme/PycharmProjects/comp/data/cassava-leaf-disease-classification/train.csv'
+# NEW_IMAGES_FOLDER = '/home/noteme/PycharmProjects/comp/data/cassava-leaf-disease-classification/train_images'
+# DEST_FOLDER = '/home/noteme/PycharmProjects/comp/data/cassava-disease/train'
+
+# Sergey's DEST_FOLDERS
+LABELS = r"D:\CASSAVA COMPET\2020-11-27 CASSAVA-LEAF-CHALLENGE\2. Preparead Data\train.csv"
+NEW_IMAGES_FOLDER = r"D:\CASSAVA COMPET\2020-11-27 CASSAVA-LEAF-CHALLENGE\2. Preparead Data\2020-11-27\train_images"
+DEST_FOLDER = r"D:\CASSAVA COMPET\2020-11-27 CASSAVA-LEAF-CHALLENGE\2. Preparead Data\2020-11-29 TRAIN ORIGINAL"
 
 # read train.csv file and load it as dict
 with open(LABELS, 'r') as fp:
@@ -26,7 +33,7 @@ with open(LABELS, 'r') as fp:
 
 # rename and add (move) new images to the older images using previous format (class-wise folders)
 image_names = os.listdir(NEW_IMAGES_FOLDER)
-for image_name in image_names:
+for image_name in tqdm(image_names):
 
     label = labels_dict[image_name]
     # update IDX_DICT idx
@@ -35,3 +42,4 @@ for image_name in image_names:
     new_path = os.path.join(DEST_FOLDER, label, f"train-{label}-{IDX_DICT[label]}.jpg")
     move(old_abs_path, new_path)
     pass
+
