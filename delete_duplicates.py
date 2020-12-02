@@ -6,14 +6,14 @@ import imagehash
 import glob
 from p_tqdm import p_map
 from PIL import Image
-
+from tqdm import tqdm
 
 FUNCS = [
         imagehash.average_hash,
         imagehash.phash,
         imagehash.dhash,
         imagehash.whash,
-    ]
+        ]
 
 
 def get_hashes(path):
@@ -30,25 +30,26 @@ def compute_hashes(pathes):
 
 
 def compute_similarity(hashes):
-    sims = np.array([(hashes[i] == hashes).sum(dim=1).numpy() / 256 for i in range(hashes.shape[0])])
+    sims = np.array([(hashes[i] == hashes).sum(dim=1).numpy() / 256 for i in tqdm(range(hashes.shape[0]))])
     np.fill_diagonal(sims, 0)  # remove comparison of images with itself
     return sims
 
 
-def find_duplicates(similarity, image_pathes):
-    duplicates = []
+def find_duplicates(similarity, image_pathes, external_folders=False):
+    duplicates_idx = []
 
     # filter all duplicates
-    for i in range(len(similarity)):
-        dup_indices = np.argwhere(similarity[i] > 0.9)
-        if not dup_indices.size > 0:
-            continue
+    for row_id in tqdm(range(len(similarity))):
+        if not external_folders:
+            if row_id in duplicates_idx:
+                continue
+        dup_indices = np.argwhere(similarity[row_id] > 0.9)[:,0]
         for idx in dup_indices:
-            similarity[i][idx] = 0  # leave one image and delete others
-            duplicates.append(image_pathes[int(idx)])
+            duplicates_idx.append(idx)
 
     # remove duplicates
-    duplicates = np.unique(duplicates)
+    duplicates_idx = np.unique(duplicates_idx)
+    duplicates = [image_pathes[idx] for idx in duplicates_idx]
     return duplicates
 
 
@@ -90,7 +91,7 @@ def remove_cross_class_duplicates(folders):
     sims = compute_similarity(hashes)
 
     # find duplicates
-    duplicates = find_duplicates(similarity=sims, image_pathes=image_pathes, between_classes=True)
+    duplicates = find_duplicates(similarity=sims, image_pathes=image_pathes, external_folders=True)
 
     # remove duplicates
     p_map(os.remove, duplicates)
@@ -99,11 +100,15 @@ def remove_cross_class_duplicates(folders):
 if __name__ == '__main__':
     start_time = datetime.datetime.now()
     TRAIN_DIR = '/home/noteme/PycharmProjects/comp/data/cassava-disease/train'
+    extra_images_folder = '/home/noteme/PycharmProjects/comp/data/cassava-disease/extraimages/extraimages'
     folders = glob.glob(f"{TRAIN_DIR}/*")
 
-    # remove duplicates within each class
-    for folder in folders:
-        remove_intra_class_duplicates(folder)   # removed 1256 images
+    # # remove duplicates within extra images
+    # remove_intra_class_duplicates(extra_images_folder)
+    #
+    # # remove duplicates within each class
+    # for folder in folders:
+    #     remove_intra_class_duplicates(folder)   # removed 1256 images
 
     # remove duplicates between classes
     remove_cross_class_duplicates(folders)      # removed 174 images
