@@ -35,7 +35,7 @@ def compute_similarity(hashes):
     return sims
 
 
-def find_duplicates(similarity, image_pathes, between_classes=False):
+def find_duplicates(similarity, image_pathes):
     duplicates = []
 
     # filter all duplicates
@@ -46,8 +46,6 @@ def find_duplicates(similarity, image_pathes, between_classes=False):
         for idx in dup_indices:
             similarity[i][idx] = 0  # leave one image and delete others
             duplicates.append(image_pathes[int(idx)])
-            if between_classes:
-                duplicates.append(image_pathes[i])  # leave all strange classes
 
     # remove duplicates
     duplicates = np.unique(duplicates)
