@@ -16,14 +16,14 @@ LBL_DESC_DICT = {0: 'cbb',
                  4: 'healthy'}
 
 # Vlad's DEST_FOLDERS
-# LABELS = '/home/noteme/PycharmProjects/comp/data/cassava-leaf-disease-classification/train.csv'
-# NEW_IMAGES_FOLDER = '/home/noteme/PycharmProjects/comp/data/cassava-leaf-disease-classification/train_images'
-# DEST_FOLDER = '/home/noteme/PycharmProjects/comp/data/cassava-disease/train'
+LABELS = '/home/noteme/PycharmProjects/comp/data/cassava-leaf-disease-classification/train.csv'
+NEW_IMAGES_FOLDER = '/home/noteme/PycharmProjects/comp/data/cassava-leaf-disease-classification/train_images'
+DEST_FOLDER = '/home/noteme/PycharmProjects/comp/data/cassava-disease/train'
 
 # Sergey's DEST_FOLDERS
-LABELS = r"D:\CASSAVA COMPET\2020-11-27 CASSAVA-LEAF-CHALLENGE\2. Preparead Data\train.csv"
-NEW_IMAGES_FOLDER = r"D:\CASSAVA COMPET\2020-11-27 CASSAVA-LEAF-CHALLENGE\2. Preparead Data\2020-11-27\train_images"
-DEST_FOLDER = r"D:\CASSAVA COMPET\2020-11-27 CASSAVA-LEAF-CHALLENGE\2. Preparead Data\2020-11-29 TRAIN ORIGINAL"
+# LABELS = r"D:\CASSAVA COMPET\2020-11-27 CASSAVA-LEAF-CHALLENGE\2. Preparead Data\train.csv"
+# NEW_IMAGES_FOLDER = r"D:\CASSAVA COMPET\2020-11-27 CASSAVA-LEAF-CHALLENGE\2. Preparead Data\2020-11-27\train_images"
+# DEST_FOLDER = r"D:\CASSAVA COMPET\2020-11-27 CASSAVA-LEAF-CHALLENGE\2. Preparead Data\2020-11-29 TRAIN ORIGINAL"
 
 # read train.csv file and load it as dict
 with open(LABELS, 'r') as fp:
