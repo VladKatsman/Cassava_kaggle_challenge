@@ -199,11 +199,11 @@ if __name__ == '__main__':
                     'Acc@1 {top1.val:.3f} ({top1.avg:.3f})'.format(
                         epoch, loss=run_train_loss, top1=run_train_acc))
 
-                logger.add_scalars('batch', {'loss': run_train_loss.val}, total_iter)
-                logger.add_scalars('batch/acc', {'top1': run_train_acc.val}, total_iter)
+                logger.add_scalars('train', {'loss': run_train_loss.val}, total_iter)
+                logger.add_scalars('train/acc', {'top1': run_train_acc.val}, total_iter)
 
             # Epoch logs
-            logger.add_scalars('epoch/acc/train', {'top1': run_train_acc.avg}, epoch)
+            logger.add_scalars('epoch/acc', {'train': run_train_acc.avg}, epoch)
 
             # validation
             model.eval()
@@ -233,7 +233,7 @@ if __name__ == '__main__':
                             epoch, loss=run_val_loss, top1=run_val_acc))
 
                 # Epoch logs
-                logger.add_scalars('epoch/acc/val', {'top1': run_val_acc.avg}, epoch)
+                logger.add_scalars('epoch/acc', {'val': run_val_acc.avg}, epoch)
 
             # save best model and latest model with all required parameteres
             if run_val_acc.avg > best_metric:
