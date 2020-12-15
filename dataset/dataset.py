@@ -17,7 +17,7 @@ class CassavaDataset(Dataset):
 
         super().__init__()
         self.split = split
-        self.images_list = images_list
+        self.images_list = images_list # tmp
         self.augmentations = get_train_transforms()
 
     def __len__(self):
@@ -26,9 +26,12 @@ class CassavaDataset(Dataset):
     def __getitem__(self, index: int):
 
         path = self.images_list[self.split[index]]
+        # path = self.images_list[self.split[0]]
+        # label_idx = 0
         image = np.array(Image.open(path))
         label_string = os.path.basename(path).split('-')[1]
         label_idx = LBL_DESC_DICT[label_string]
+
 
         if self.augmentations:
             image = self.augmentations(image=image)['image']
