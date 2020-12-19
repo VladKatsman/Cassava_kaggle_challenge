@@ -42,7 +42,8 @@ def get_train_transforms():
 def get_inference_transforms():
     return Compose([
         SmallestMaxSize(max_size=512),
-        RandomCrop(320, 320),
+        Resize(320, 320),
+        # RandomCrop(320, 320),
         # Transpose(p=0.5),
         # HorizontalFlip(p=0.5),
         # VerticalFlip(p=0.5),

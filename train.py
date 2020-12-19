@@ -125,7 +125,7 @@ if __name__ == '__main__':
     for key in folds.keys():
         # initiate datasets
         dataset_train = dataloader(split=folds[key]['train'], images_list=images_list, batch_size=BATCH_SIZE)
-        dataset_val = dataloader(split=folds[key]['val'], images_list=images_list, batch_size=BATCH_SIZE)
+        dataset_val = dataloader(split=folds[key]['val'], images_list=images_list, batch_size=BATCH_SIZE, train=False)
 
         # initiate model
         model = create_model(pretrained=True)
