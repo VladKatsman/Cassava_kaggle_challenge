@@ -19,8 +19,8 @@ def split_train_val_5_fold(root, seed=1337):
         images_list.extend(images)
         kf.get_n_splits(images)
         for idx, (train, val) in enumerate(kf.split(images)):
-            fold_dic[idx]["train"].extend((train + cur_idx))
-            fold_dic[idx]["val"].extend(val)
+            fold_dic[idx]["train"].extend(train + cur_idx)
+            fold_dic[idx]["val"].extend(val + cur_idx)
         cur_idx += len(images)
     return fold_dic, images_list
 
