@@ -26,7 +26,6 @@ def split_train_val_5_fold(root, seed=1337):
 
 
 if __name__ == '__main__':
-    root = '/home/noteme/PycharmProjects/comp/data/cassava-disease'
+    root = r'D:\CASSAVA COMPET\2020-11-27 CASSAVA-LEAF-CHALLENGE\2. Preparead Data\2020-11-29 TRAIN ORIGINAL T-CROSS-FLD DUP RMVD\2020-11-30 TRAIN'
     seed = 1337
-
     split_train_val_5_fold(root, seed=seed)
