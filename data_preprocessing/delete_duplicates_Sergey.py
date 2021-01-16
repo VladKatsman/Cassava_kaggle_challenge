@@ -161,7 +161,6 @@ if __name__ == '__main__':
 
     print(f'{len(extra_dups)} extra-class duplicates have been extracted.')
 
-    intra_dups, intra_dup_pairs =
     merged_dataset = helper_function.data_merge(csv_2020,PATH_2019)          # generate merged_dataset
 
     print('Extracting intra-class duplicates ...')
