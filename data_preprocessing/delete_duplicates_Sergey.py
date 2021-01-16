@@ -156,8 +156,8 @@ if __name__ == '__main__':
     # extract duplicates within extra images
     print('Extracting intra-class duplicates across extra images...')
     extra_dups, extra_dup_pairs = extract_extra_img_duplicates(extra_images_folder)
-    extra_dups.to_csv('extra_dups2.csv',index=False)
-    extra_dup_pairs.to_csv('extra_dup_pairs2.csv',index=False)
+    extra_dups.to_csv('extra_dups.csv',index=False)
+    extra_dup_pairs.to_csv('extra_dup_pairs.csv',index=False)
 
     print(f'{len(extra_dups)} extra-class duplicates have been extracted.')
 
